@@ -24,17 +24,21 @@
       }
     </style>
     <script type="text/javascript">
+      var contInterval;
       function run(){
         var inst = new Y(document.getElementById("code").value);
         document.getElementById("out").innerHTML = "";
-        inst.out = function(s){document.getElementById("out").innerHTML += s + "<br>"}
+        inst.out = function(s){document.getElementById("out").innerHTML += s }
         inst.run();
       }
       function timeoutRun(){
         var inst = new Y(document.getElementById("code").value);
         document.getElementById("out").innerHMTL = "";
-        inst.out = function(s){document.getElementById("out").innerHTML += s + "<br>"}
-        inst.stepRun();
+        inst.out = function(s){document.getElementById("out").innerHTML += s }
+        contInterval = setInterval(function(y){y.step();if(y.done)clearInterval(contInterval)},1,inst);
+      }
+      function stop(){
+        clearInterval(contInterval);
       }
     </script> 
   </head>
@@ -42,7 +46,7 @@
     <h1 id="title">Y</h1>
     <h2>A chained language</h2>
     <textarea id="code"></textarea>
-    <button onclick="run()">execute code</button><button onclick="timeoutRun()">timeout run</button>
+    <button onclick="run()">execute code</button><button onclick="timeoutRun()">timeout run</button><button onclick="stop()">stop</button>
     <div id="out"></div>
   </body>
 </html>

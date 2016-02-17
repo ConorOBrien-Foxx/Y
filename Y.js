@@ -1,7 +1,7 @@
 function Y(code){
 	this.origCode = code;
 	this.links = [];
-	var curSection = "", linkIDs = "CDJMPQX"
+	var curSection = "", linkIDs = "CDJMPQX";
 	// parse links
 	for(var i=0;i<code.length;i++){
 		curSection += code[i];
@@ -22,7 +22,7 @@ function Y(code){
 		},
 		"D": function(y){
 			if(y.stack.pop()){ y.curLink++; y.index = -1; }
-			else y.index = 0;
+			else y.index = -1;
 		},
 		"\"": function(y){
 			var chr, s = "";

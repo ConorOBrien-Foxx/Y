@@ -18,10 +18,28 @@ function Y(code){
 	this.commands = {
 		"C": function(y){
 			y.curLink++;
-			y.index = 0;
+			y.index = -1;
+		},
+		"D": function(y){
+			if(y.stack.pop()){ y.curLink++; y.index = -1; }
+			else y.index = 0;
 		},
 		"\"": function(y){
-			
+			var chr, s = "";
+			do {
+				chr = y.links[y.curLink][++y.index];
+				if(chr==="`") chr = y.links[y.curLink][++y.index];
+				if(!chr){
+					y.index = 0;
+					chr = y.links[y.curLink][y.index];
+				}
+				s += chr;
+			} while(chr!=="\"");
+			y.stack.push(s.slice(0,-1));
+		},
+		"_": function(y){
+			var x = y.stack.pop();
+			y.stack.push(typeof x==="number"?-x:x.split?x.split("").reverse():x.reverse());
 		},
 		"0": function(y){
 			y.stack.push(0);
@@ -82,7 +100,7 @@ function Y(code){
 					b += y.links[y.curLink][++y.index] || "";
 				}
 				if(y.index>=y.links[y.curLink].length){
-					y.commands.C(y);
+					y.curLink++; y.index = 0;
 					if(y.curLink>=y.links.length){
 						y.curLink = 0;
 						y.index = 0;
@@ -93,6 +111,7 @@ function Y(code){
 				y.index++;
 			} while(chr!="U"&&chr);
 			y.stack.push(b.slice(0,-1));
+			y.index--;
 		},
 		";": function(y){
 			y.stack = y.stack.concat(y.stack);
@@ -124,6 +143,53 @@ function Y(code){
 			} else if(typeof i[0]==typeof i[1]&&typeof i[1]=="number"){
 				y.stack.push(i[0]*i[1]);
 			}
+		},
+		"+": function(y){
+			var i = y.getTop(2);
+			if(typeof i[0]==="string"&&typeof i[1]==="string"||typeof i[0]==="number"&&typeof i[1]==="number"){
+				y.stack.push(i[0]+i[1])
+			} else if(typeof i[0]==="string"&&typeof i[1]==="number"){
+				while(i[1] --> 0)
+					y.stack.push(i[0]);
+			}
+		},
+		"'": function(y){
+			y.stack.push(y.links[y.curLink][++y.index]);
+		},
+		"@": function(y){
+			y.stack.push(y.stack.pop().charCodeAt());
+		},
+		"#": function(y){
+			y.stack.push(String.fromCharCode(y.stack.pop()))
+		},
+		"~": function(y){
+			var t = y.stack.pop(), u = y.stack.pop();
+			y.stack.push(t,u);
+		},
+		"$": function(y){
+			y.stack.pop();
+		},
+		":": function(y){
+			var r = y.stack.pop();
+			y.stack.push(r,r);
+		},
+		"s": function(y){
+			y.stack.push(y.stack.pop()+"");
+		},
+		"i": function(y){
+			y.stack.push(y.in("string input: "));
+		},
+		"j": function(y){
+			y.stack.push(+y.in("number input: "));
+		},
+		"k": function(y){
+			y.stack.push(parseInt(y.stack.pop(),y.stack.pop()));
+		},
+		"g": function(y){
+			y.out(y.stack.pop())
+		},
+		"?": function(y){
+			if(!y.stack.pop()) y.index++;
 		}
 	}
 }
@@ -137,6 +203,10 @@ Y.prototype.out = function(s){
 	console.log(s);
 }
 
+Y.prototype.in = function(s){
+	return prompt(s||"Enter input: ");
+}
+
 Y.prototype.getTop = function(N){
 	var s = [];
 	while(N --> 0){
@@ -148,14 +218,14 @@ Y.prototype.getTop = function(N){
 Y.prototype.bound = function(callback){
 	callback = calback || (function(){});
 	if(this.index>=this.links[this.curLink].length){
-		this.commands.C(this);
+		this.curLink++; y.index = 0;
 		if(this.curLink>=this.links.length) callback(this);
 	}
 }
 
 Y.prototype.step = function(){
 	if(this.index>=this.links[this.curLink].length){
-		this.commands.C(this);
+		this.curLink++; y.index = 0;
 		if(this.curLink>=this.links.length) return !(this.done = true);
 	}
 	var chr = this.links[this.curLink][this.index];

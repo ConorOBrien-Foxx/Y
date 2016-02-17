@@ -5,13 +5,16 @@
     <title>Y by ConorOBrien-Foxx</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400,300,200,100,500,600,700,800,900' rel='stylesheet' type='text/css'>
     <script type="text/javascript" src="https://rawgit.com/ConorOBrien-Foxx/Y/master/Y.js"></script>
     <style>
-      html {
+      html, button {
         font-family: "Open Sans", Consolas, monospace;
       }
-      h1,h2 { margin: 0; }
-      #title { }
+      h1, h2, h3 { margin: 0; font-family: Raleway, Arial, sans-serif; font-weight: 200; }
+      h3 { margin-bottom: -8px; }
+      #title { color: white; text-shadow: 0px 0px 10px gold, 0px 0px 10px blue, 0px 0px 2px black; font-weight: 300; font-size: 46px; text-align: center; box-shadow: 0px 5px 5px -6px black; margin-bottom: 5px; }
+      #subtitle { text-align: center; font-style: italic; }
       #out, textarea {
         border: 1px solid #afafaf;
         border-radius: 5px;
@@ -22,6 +25,11 @@
         white-space: pre;
         font-family: Consolas, monospace;
       }
+      button { float: right; margin-bottom: 10px; border: 1px solid grey; background: #ccc; padding: 2px 5px; transition: all .1s linear; cursor: pointer; }
+      button:hover { background: #f3f3f3; }
+      button + button { border-right: none; }
+      button + h3 { clear: right; }
+      #content { max-width: 500px; }
     </style>
     <script type="text/javascript">
       var contInterval;
@@ -33,7 +41,7 @@
       }
       function timeoutRun(){
         var inst = new Y(document.getElementById("code").value);
-        document.getElementById("out").innerHMTL = "";
+        document.getElementById("out").innerHTML = "";
         inst.out = function(s){document.getElementById("out").innerHTML += s }
         contInterval = setInterval(function(y){y.step();if(y.done)clearInterval(contInterval)},1,inst);
       }
@@ -43,10 +51,14 @@
     </script> 
   </head>
   <body>
-    <h1 id="title">Y</h1>
-    <h2>A chained language</h2>
-    <textarea id="code"></textarea>
-    <button onclick="run()">execute code</button><button onclick="timeoutRun()">timeout run</button><button onclick="stop()">stop</button>
-    <div id="out"></div>
+    <div id="content">
+      <h1 id="title">Y</h1>
+      <h2 id="subtitle">A chained language</h2>
+      <h3>Code</h3>
+      <textarea id="code"></textarea>
+      <button onclick="stop()">stop</button><button onclick="timeoutRun()">timeout run</button><button onclick="run()">execute code</button>
+      <h3>Output</h3>
+      <div id="out"></div>
+    </div>
   </body>
 </html>

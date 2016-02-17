@@ -21,8 +21,10 @@ function Y(code){
 			y.index = -1;
 		},
 		"D": function(y){
-			if(y.stack.pop()){ y.curLink++; y.index = -1; }
-			else y.index = -1;
+			var t = y.stack.pop();
+			if(t) y.curLink++
+			y.index = -1;
+			y.stack.push(t);
 		},
 		"X": function(y){
 			y.index = -1;
@@ -156,6 +158,13 @@ function Y(code){
 					y.stack.push(i[0]);
 			}
 		},
+		"-": function(y){
+			var i = y.getTop(2);if(typeof i[0]=="string"||typeof i[1]=="string"){
+				y.stack.push(i[0].replace?i[0].replace(RegExp(i[1],"g")):i[1].replace(RegExp(i[0],"g")));
+			} else if(typeof i[0]==typeof i[1]&&typeof i[1]=="number"){
+				y.stack.push(i[0]-i[1]);
+			}
+		},
 		"'": function(y){
 			y.stack.push(y.links[y.curLink][++y.index]);
 		},
@@ -192,7 +201,9 @@ function Y(code){
 			y.out(y.stack.pop())
 		},
 		"?": function(y){
-			if(!y.stack.pop()) y.index++;
+			var t = y.stack.pop();
+			if(!t) y.index++;
+			y.stack.push(t);
 		}
 	}
 }
@@ -239,11 +250,4 @@ Y.prototype.step = function(){
 
 Y.prototype.run = function(){
 	while(!this.done) this.step();
-}
-
-Y.prototype.stepRun = function(){
-	var j=function(y){
-		y.step();if(!y.done)setTimeout(j,1,y);
-	}
-	j(this);
 }

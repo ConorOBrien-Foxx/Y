@@ -30,13 +30,19 @@
         inst.out = function(s){document.getElementById("out").innerHTML += s + "<br>"}
         inst.run();
       }
+      function timeoutRun(){
+        var inst = new Y(document.getElementById("code").value);
+        document.getElementById("out").innerHMTL = "";
+        inst.out = function(s){document.getElementById("out").innerHTML += s + "<br>"}
+        inst.stepRun();
+      }
     </script> 
   </head>
   <body>
     <h1 id="title">Y</h1>
     <h2>A chained language</h2>
     <textarea id="code"></textarea>
-    <button onclick="run()">execute code</button>
+    <button onclick="run()">execute code</button><button onclick="timeoutRun()">timeout run</button>
     <div id="out"></div>
   </body>
 </html>

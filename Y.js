@@ -203,8 +203,12 @@ function Y(code){
 		"?": function(y){
 			var t = y.stack.pop();
 			if(!t) y.index++;
+		},
+		".": function(y){
+			var t = y.stack.pop();
+			if(!t) y.index++;
 			y.stack.push(t);
-		}
+		},
 	}
 }
 

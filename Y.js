@@ -24,6 +24,9 @@ function Y(code){
 			if(y.stack.pop()){ y.curLink++; y.index = -1; }
 			else y.index = -1;
 		},
+		"X": function(y){
+			y.index = -1;
+		},
 		"\"": function(y){
 			var chr, s = "";
 			do {
@@ -236,4 +239,11 @@ Y.prototype.step = function(){
 
 Y.prototype.run = function(){
 	while(!this.done) this.step();
+}
+
+Y.prototype.stepRun = function(){
+	var j=function(y){
+		y.step();if(!y.done)setTimeout(j,1,y);
+	}
+	j(this);
 }

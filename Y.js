@@ -24,7 +24,12 @@ function Y(code){
 			var t = y.stack.pop();
 			if(t) y.curLink++
 			y.index = -1;
-			y.stack.push(t);
+			//y.stack.push(t);
+		},
+		"F": function(y){
+			var t = y.stack.pop();
+			if(!t) y.curLink++;
+			y.index = -1;
 		},
 		"X": function(y){
 			y.index = -1;

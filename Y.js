@@ -1,13 +1,17 @@
 function Y(code){
 	this.origCode = code;
 	this.links = [];
-	var curSection = "", linkIDs = "CDJMPQX";
+	var curSection = "", linkIDs = "CDFJMPQX", stringMode = false;
 	// parse links
 	for(var i=0;i<code.length;i++){
 		curSection += code[i];
-		if(linkIDs.indexOf(code[i])>=0){
-			this.links.push(curSection);
-			curSection = "";
+		if(code[i] == "\\") i++;
+		else {
+			if(code[i] == "\"") stringMode = !stringMode;
+			if(linkIDs.indexOf(code[i])>=0){
+				this.links.push(curSection);
+				curSection = "";
+			}
 		}
 	}
 	this.links.push(curSection);

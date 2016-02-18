@@ -17,7 +17,9 @@ A chaining language
 
  * "..." write string characters
  * ' write next char
- * d duplicate
+ * : duplicate
+ * h head
+ * d tail
  * ~ switch top two
  * ; duplicate entire stack
  * + add

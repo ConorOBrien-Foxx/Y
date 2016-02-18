@@ -5,6 +5,7 @@
     <title>Y by ConorOBrien-Foxx</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Ubuntu+Mono&subset=latin,greek,greek-ext' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Raleway:300,200' rel='stylesheet' type='text/css'>
     <script type="text/javascript" src="https://rawgit.com/ConorOBrien-Foxx/Y/master/Y.js"></script>
     <style>
@@ -23,13 +24,14 @@
         margin: 10px 0;
         padding: 5px;
         white-space: pre;
-        font-family: Consolas, monospace;
+        color: #151515;
+        font-family: "Ubuntu mono", Consolas, monospace;
       }
       button { float: right; margin-bottom: 10px; border: 1px solid grey; background: #ccc; padding: 2px 5px; transition: all .1s linear; cursor: pointer; }
       button:hover { background: #f3f3f3; }
       button + button { border-right: none; }
       button + h3 { clear: right; }
-      #content { max-width: 500px; }
+      #content { max-width: 700px; min-width: 300px; }
     </style>
     <script type="text/javascript">
       var contInterval;
@@ -53,7 +55,7 @@
   <body>
     <div id="content">
       <h1 id="title">Y</h1>
-      <h2 id="subtitle">A chained language</h2>
+      <h2 id="subtitle">a chained language</h2>
       <h3>Code</h3>
       <textarea id="code"></textarea>
       <button onclick="stop()">stop</button><button onclick="timeoutRun()">timeout run</button><button onclick="run()">execute code</button>

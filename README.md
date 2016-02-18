@@ -6,6 +6,7 @@ A chaining language
 
  * C-link: move to the next section
  * D-link: pop N; if N is nonzero, move to the next section
+ * F-link: pop N, if N is zero (falsey), move to the next section
  * J-link: pop N; move to the Nth section
  * M-link: pop N; move over N sections
  * P-link: pop N, M; if M is nonzero, move to the Nth section

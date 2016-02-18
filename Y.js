@@ -8,7 +8,7 @@ function Y(code){
 		if(code[i] == "\\") i++;
 		else {
 			if(code[i] == "\"") stringMode = !stringMode;
-			if(linkIDs.indexOf(code[i])>=0){
+			if(linkIDs.indexOf(code[i])>=0 && !stringMode){
 				this.links.push(curSection);
 				curSection = "";
 			}

@@ -35,6 +35,11 @@ function Y(code){
 			if(!t) y.curLink++;
 			y.index = -1;
 		},
+		"M": function(y){
+			var t = y.stack.pop();
+			y.curLink += t;
+			y.index = -1;
+		},
 		"X": function(y){
 			y.index = -1;
 		},
@@ -193,6 +198,16 @@ function Y(code){
 		":": function(y){
 			var r = y.stack.pop();
 			y.stack.push(r,r);
+		},
+		"h": function(y){
+			var i = y.stack.pop();
+			if(typeof i==="string") y.stack.push(i.slice(1));
+			y.stack.push(i+1);
+		},
+		"t": function(y){
+			var i = y.stack.pop();
+			if(typeof i==="string") y.stack.push(i.slice(0,-1));
+			y.stack.push(i-1);
 		},
 		"s": function(y){
 			y.stack.push(y.stack.pop()+"");

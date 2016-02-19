@@ -234,7 +234,7 @@ function Y(code){
 			y.stack.push(t);
 		},
 		"|": function(y){
-			var op = y.commands[y.code[++y.index]];
+			var op = y.links[y.curLink][++y.index];
 			while(y.stack.length>1){
 				op(y);
 			}

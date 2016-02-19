@@ -233,7 +233,7 @@ function Y(code){
 			if(!t) y.index++;
 			y.stack.push(t);
 		},
-		"f": function(y){
+		"|": function(y){
 			var op = y.commands[y.code[++y.index]];
 			while(y.stack.length>1){
 				op(y);

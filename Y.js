@@ -264,7 +264,7 @@ Y.prototype.getTop = function(N){
 }
 
 Y.prototype.bound = function(callback){
-	callback = calback || (function(){});
+	callback = callback || (function(){});
 	if(this.index>=this.links[this.curLink].length){
 		this.curLink++; y.index = 0;
 		if(this.curLink>=this.links.length) callback(this);

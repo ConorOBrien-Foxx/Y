@@ -39,3 +39,4 @@ A chaining language
  * g print char
  * j print number
  * x end program
+ * f fold

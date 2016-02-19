@@ -276,14 +276,14 @@ Y.prototype.bound = function(callback){
 }
 
 Y.prototype.step = function(){
-	if(this.links[this.curLink]?this.index>=this.links[this.curLink].length:true){
+	if(typeof this.links[this.curLink]!=="undefined"?this.index>=this.links[this.curLink].length:true){
 		this.curLink++; this.index = 0;
 		if(this.curLink>=this.links.length){
 			if(this.implicitPrint) this.out(this.stack.pop());
 			return !(this.done = true);
 		}
 	}
-	var chr = this.links[this.curLink][this.index];
+	var chr = (this.links[this.curLink]||"")[this.index];
 	if(this.commands[chr]) this.commands[chr](this);
 	this.index++;
 	return this;

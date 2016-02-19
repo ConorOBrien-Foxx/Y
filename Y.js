@@ -153,7 +153,7 @@ function Y(code){
 		},
 		"!": function(y){
 			y.index++;
-			y.bound(Y.WRAP);
+			//y.bound(Y.WRAP);
 		},
 		"*": function(y){
 			var i = y.getTop(2);

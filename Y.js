@@ -63,7 +63,7 @@ function Y(code){
 		},
 		"z": function(y){
 			y.implicitPrint = true;
-		}
+		},
 		"0": function(y){
 			y.stack.push(0);
 		},

@@ -1,6 +1,7 @@
 function Y(code){
 	this.origCode = code;
 	this.links = [];
+	this.implicitPrint = false;
 	var curSection = "", linkIDs = "CDFJMPQX", stringMode = false;
 	// parse links
 	for(var i=0;i<code.length;i++){
@@ -60,6 +61,9 @@ function Y(code){
 			var x = y.stack.pop();
 			y.stack.push(typeof x==="number"?-x:x.split?x.split("").reverse():x.reverse());
 		},
+		"z": function(y){
+			y.implicitPrint = true;
+		}
 		"0": function(y){
 			y.stack.push(0);
 		},
@@ -274,7 +278,10 @@ Y.prototype.bound = function(callback){
 Y.prototype.step = function(){
 	if(this.links[this.curLink]?this.index>=this.links[this.curLink].length:true){
 		this.curLink++; this.index = 0;
-		if(this.curLink>=this.links.length) return !(this.done = true);
+		if(this.curLink>=this.links.length){
+			if(this.implicitPrint) this.out(this.stack.pop());
+			return !(this.done = true);
+		}
 	}
 	var chr = this.links[this.curLink][this.index];
 	if(this.commands[chr]) this.commands[chr](this);

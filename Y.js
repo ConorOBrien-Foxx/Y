@@ -272,7 +272,7 @@ Y.prototype.bound = function(callback){
 }
 
 Y.prototype.step = function(){
-	if(this.index>=this.links[this.curLink].length){
+	if(this.links[this.curLink]?this.index>=this.links[this.curLink].length:true){
 		this.curLink++; this.index = 0;
 		if(this.curLink>=this.links.length) return !(this.done = true);
 	}

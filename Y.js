@@ -133,7 +133,7 @@ function Y(code){
 				}
 				y.index++;
 			} while(chr!="U"&&chr);
-			y.stack.push(b.slice(0,-1));
+			y.stack.push(b.slice(0,-1)+(b[b.length-1]=="U"?"":b[b.length-1]));
 			y.index--;
 		},
 		";": function(y){

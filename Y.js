@@ -115,6 +115,7 @@ function Y(code){
 		"U": function(y){
 			var chr;
 			var b = "U";
+			var orginal = y.index;
 			y.index++;
 			do {
 				chr = y.links[y.curLink][y.index];
@@ -136,7 +137,7 @@ function Y(code){
 			y.stack.push(b.slice(0,-1)+(b[b.length-1]=="U"?"":b[b.length-1]));
 			console.log(y.index,y.curLink);
 			if(typeof y.curLink[y.index]==="undefined"){
-				y.curLink = 0;
+				y.curLink = original;
 			}
 			y.index--;
 		},

@@ -22,10 +22,10 @@ A chaining language
  * d tail
  * ~ switch top two
  * ; duplicate entire stack
- * + add
+ * \+ add
  * / divide
- * - minus
- * * times
+ * \- minus
+ * \* times
  * ^ exponent
  * 0-9 push number
  * c current links
